@@ -8,6 +8,8 @@ enum flags {
     WRONG_INPUT,
 };
 
+// если можно избежать использование глобальных переменных, то так лучше и сделать
+// лучше, если ф-и будут явно возвращать код возврата
 int _FLAG_ = OK;
 
 enum consts {
@@ -33,6 +35,8 @@ unsigned char char_to_int(char c) {
     else if ( c >= 'a' && c <= 'z'){
         return c - 'a' + 10;
     }
+    // есть ветка условия, которая ничего не возращает ...
+    // в данном случае лучше использовать готовую ф-ю, например, atoi
 }
 
 struct number read_number(FILE* in) {
@@ -99,6 +103,8 @@ int is_zero(struct number number) {
     return 1;
 }
 
+// ожидаемые названия аргументов ф-и divide - это "делимое" и "делитель" ... или "число" и "делитель"
+// добавьте, пожалуйста, комментарий, что возвращаемое значение - это остаток от деления
 char divide(struct number number, unsigned new_base) {
     int temp = 0;
 	for (unsigned i = 0; i < number.len; i++){
@@ -151,10 +157,12 @@ struct number change_base(struct number number, unsigned new_base) {
 void delete_number(struct number number) {
     if(number.digits != NULL) {
         free(number.digits);
+	// лучше занулить указатель после free. чтобы по ошибке не начать использовать указатель после очищения памяти
     }
 }
 
 int main() {
+    // хоть вы и завели переменную для кода ошибок, но никак её не используете
     struct number input_num = read_number(stdin);
 
     unsigned new_base;
