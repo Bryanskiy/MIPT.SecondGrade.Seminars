@@ -3,20 +3,34 @@
 #include <fcntl.h>
 #include <stdlib.h>
 
-size_t file_size() {
+enum consts {
+    max_file_size = 1000
+};
 
-}
-
-int main() {
-    int max_size = 1000;
-    int fd = open("read.txt", O_CREAT | O_RDONLY, 0777);
-    if(fd == -1) {
+int main(int argc, char** argv) {
+    if(argc != 2) {
+        fprintf(stderr, "expected file name\n");
         exit(1);
     }
 
-    char* buffer = (char*)calloc(max_size, sizeof(char));
-    size_t num = read(fd, buffer, max_size);
+    int fd = open(argv[1], O_CREAT | O_RDONLY, 0400);
+    if(fd == -1) {
+        fprintf(stderr, "can't open file\n");
+        exit(1);
+    }
 
-    write(0, buffer, max_size);
+    size_t N;
+    scanf("%lu", &N);
+
+    char* buffer = (char*)calloc(max_file_size + 1, sizeof(char));
+    size_t num = read(fd, buffer, max_file_size);
+
+    int ret;
+    int i = 0;
+    do {
+        ret = write(0, buffer + i, N);
+        i += N;
+    }  while(i <= num);
+
     close(fd);   
 }
