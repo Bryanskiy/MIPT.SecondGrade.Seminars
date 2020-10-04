@@ -8,7 +8,7 @@ int main() {
         execlp("gcc", "gcc", "hello.c", "-o", "hello.out", NULL);
     }
 
-    int status;
+    int status = 0;
     wait(&status);
     execlp("./hello.out", "./hello.out", NULL);
 }
