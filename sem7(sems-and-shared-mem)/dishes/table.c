@@ -111,7 +111,6 @@ void* washer_main_func(void* data_) {
 
     for(size_t i = 0; i < data.request_count; ++i) {
         size_t id;
-        printf("enter order number, it can't be zero!: \n");
         int ret = scanf("%lu", &id);
         if(ret != 1) {
             fprintf(stderr, "Wrong id input\n");

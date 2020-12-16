@@ -118,6 +118,7 @@ int main(int argc, char** argv) {
     second_id = pthread_create( &second, (pthread_attr_t *)NULL, write_msg, (void*)&channel);
     third_id = pthread_create( &third, (pthread_attr_t *)NULL, read_msg, (void*)&channel);
 
+	pthread_join(second, NULL);
     pthread_join(third, NULL);
 
     close(channel.fifo0);

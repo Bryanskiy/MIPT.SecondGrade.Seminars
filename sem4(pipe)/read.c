@@ -30,6 +30,7 @@ int main(int argc, char** argv) {
     do {
         ret = write(0, buffer + i, N);
         i += N;
+        printf("\n");
     }  while(i <= num);
 
     close(fd);   
